@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -25,12 +27,29 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    private String address;
     private String position;
     private double salary;
     private int age;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
+    
+    @OneToOne
+    private Adress Adress;
+    
+    @ManyToOne
+    private Company company;
+
+    public Employee() {
+    }
+
+    public Employee(String name, String position, double salary, int age) {
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this.age = age;
+    }
+
+    
     
     public int getId() {
         return id;
@@ -77,20 +96,6 @@ public class Employee implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return the address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     /**
@@ -147,6 +152,34 @@ public class Employee implements Serializable {
      */
     public void setAge(int age) {
         this.age = age;
+    }
+
+    /**
+     * @return the Adress
+     */
+    public Adress getAdress() {
+        return Adress;
+    }
+
+    /**
+     * @param Adress the Adress to set
+     */
+    public void setAdress(Adress Adress) {
+        this.Adress = Adress;
+    }
+
+    /**
+     * @return the company
+     */
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(Company company) {
+        this.company = company;
     }
     
 }

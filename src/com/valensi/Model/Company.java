@@ -7,11 +7,13 @@ package com.valensi.Model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -39,6 +41,9 @@ public class Company implements Serializable {
     @Transient // fungsi nya untuk tidak menambahkan tabel tapi berfungsi di class
     private double tax;
 
+    @OneToMany(mappedBy = "company")
+    private List<Employee> employees;
+    
     public Company() {
     }
 
@@ -136,6 +141,20 @@ public class Company implements Serializable {
      */
     public void setTax(double tax) {
         this.tax = tax;
+    }
+
+    /**
+     * @return the employees
+     */
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
+     * @param employees the employees to set
+     */
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
     
 }
