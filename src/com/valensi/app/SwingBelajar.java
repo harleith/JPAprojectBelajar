@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,11 +30,15 @@ public class SwingBelajar extends javax.swing.JFrame {
 
     EntityManagerFactory emf;
     Employee selectedEmployee;
+    DialogForm loginForm;
 
     /**
      * Creates new form SwingBelajar
      */
     public SwingBelajar() {
+        loginForm = new DialogForm(this, true);
+        loginForm.setVisible(true);
+        
         initComponents();
         emf = Persistence.createEntityManagerFactory("JPAprojectBelajarPU");
         showEmployee();
@@ -46,11 +51,10 @@ public class SwingBelajar extends javax.swing.JFrame {
         for (Employee emp : employee) {
             row[0] = emp.getId();
             row[1] = emp.getName();
-            row[2] = emp.getAddress();
-            row[3] = emp.getSalary();
-            row[4] = emp.getPosition();
-            row[5] = emp.getAge();
-            row[6] = emp.getDateOfBirth();
+            row[2] = emp.getSalary();
+            row[3] = emp.getPosition();
+            row[4] = emp.getAge();
+            row[5] = emp.getDateOfBirth();
             tableModel.addRow(row);
         }
 
@@ -138,6 +142,11 @@ public class SwingBelajar extends javax.swing.JFrame {
         peopleTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Person Details"));
 
@@ -187,6 +196,11 @@ public class SwingBelajar extends javax.swing.JFrame {
         });
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,11 +280,11 @@ public class SwingBelajar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Address", "Salary", "Position", "Age", "Tanggal"
+                "ID", "Name", "Salary", "Position", "Age", "Tanggal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -328,7 +342,6 @@ public class SwingBelajar extends javax.swing.JFrame {
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
         // TODO add your handling code here:
         namaTextField.setText("");
-        alamatTextField.setText("");
         salaryTextField.setText("");
         positionTextField.setText("");
         ageTextField.setText("");
@@ -340,7 +353,6 @@ public class SwingBelajar extends javax.swing.JFrame {
         Employee emp = new Employee();
 
         emp.setName(namaTextField.getText());
-        emp.setAddress(alamatTextField.getText());
         emp.setPosition(positionTextField.getText());
         double salary = Double.parseDouble(salaryTextField.getText());
         emp.setSalary(salary);
@@ -384,6 +396,37 @@ public class SwingBelajar extends javax.swing.JFrame {
     private void namaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namaTextFieldActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+                // TODO add your handling code here:
+//        EntityManager em = emf.createEntityManager();
+//        // SELECT * FROM PERSON
+//        String filterName = nameFilterTextField.getText();
+//        Query query = em.createQuery("Select p from Person p where p.name LIKE CONCAT('%',:filterName,'%')");
+//        query.setParameter("filterName", filterName);
+//        List<Employee> people = query.getResultList();
+//        DefaultTableModel tableModel = (DefaultTableModel) peopleTable.getModel();
+//        tableModel.setRowCount(0);
+//        Object[] row = new Object[6];
+//        for (Employee emp : people) {
+//            row[0] = emp.getId();
+//            row[1] = emp.getName();
+//            row[2] = emp.getSalary();
+//            row[3] = emp.getPosition();
+//            row[4] = emp.getAge();
+//            row[5] = emp.getDateOfBirth();
+//            
+//            
+//            tableModel.addRow(row);
+//        }
+//        em.close();
+
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        emf.close();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

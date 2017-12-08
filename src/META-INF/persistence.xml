@@ -5,6 +5,9 @@
     <class>com.valensi.Model.Employee</class>
     <class>com.valensi.Model.Company</class>
     <class>com.valensi.Model.Adress</class>
+    <class>com.valensi.Model.User</class>
+    <class>com.valensi.Model.ddwqadasfd</class>
+    <class>com.valensi.dao.LoginDAO</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JPAbelajar"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
