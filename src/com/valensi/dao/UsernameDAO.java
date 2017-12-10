@@ -27,8 +27,8 @@ public class UsernameDAO {
     
     public User findByUsername(String username) {
         User user = null;
-        try{
-        Query qUser = em.createQuery("Select u from User u where u.username = :name");
+        try {
+        Query qUser = em.createQuery("Select u from User u where u.username = :name"); // :name adalah parameter
         qUser.setParameter("name", username);
         user = (User) qUser.getSingleResult();
         } catch (NoResultException nre) {
