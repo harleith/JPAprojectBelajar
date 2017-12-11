@@ -399,6 +399,22 @@ public class SwingBelajar extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
                 // TODO add your handling code here:
+                
+          EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Employee updateEmployee =  selectedEmployee; //em.find(Person.class, selectedPerson.getId());
+        updateEmployee.setName(namaTextField.getText());
+        updateEmployee.setAge(Integer.parseInt(ageTextField.getText()));
+        updateEmployee.setSalary(Double.parseDouble(salaryTextField.getText()));
+        em.merge(updateEmployee);
+        em.getTransaction().commit();
+        em.close();
+
+        DefaultTableModel tableModel = (DefaultTableModel) peopleTable.getModel();
+        tableModel.setRowCount(0);
+        showEmployee();
+                
 //        EntityManager em = emf.createEntityManager();
 //        // SELECT * FROM PERSON
 //        String filterName = nameFilterTextField.getText();
